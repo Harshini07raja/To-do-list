@@ -1,1 +1,6 @@
-tasks.txt
+node_modules/
+public/
+__pycache__/
+*.db
+.env
+task.txt
