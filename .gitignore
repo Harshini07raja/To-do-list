@@ -1,5 +1,1 @@
-node_modules/
-public/
-__pycache__/
-*.db
-.env
+tasks.txt
