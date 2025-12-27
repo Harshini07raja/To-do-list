@@ -1013,3 +1013,35 @@ video {
   --tw-text-opacity: 1;
   color: rgb(209 213 219 / var(--tw-text-opacity, 1));
 }
+/* Header for username + logout button */
+.user-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background-color: var(--header-bg, #f5f5f5); /* adapt to your theme */
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-family: inherit;
+}
+
+.user-header .username {
+    font-size: 1rem;
+    color: var(--text-color, #333);
+}
+
+.user-header .logout-btn {
+    padding: 0.3rem 0.8rem;
+    background-color: var(--btn-bg, #ff5f5f);
+    color: var(--btn-text, #fff);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    text-decoration: none; /* if using <a> tag */
+}
+
+.user-header .logout-btn:hover {
+    background-color: var(--btn-hover-bg, #e04b4b);
+}

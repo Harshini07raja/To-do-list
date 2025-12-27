@@ -6,54 +6,64 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='output.css') }}">
 </head>
 
-<body class="min-h-screen flex items-center justify-center
-             bg-gradient-to-br from-indigo-300 via-pink-200 to-purple-300
+<body class="min-h-screen bg-gradient-to-br from-indigo-300 via-pink-200 to-purple-300
              dark:from-indigo-800 dark:via-pink-700 dark:to-purple-900
-             transition-all duration-500">
+             transition-all duration-500 flex items-center justify-center">
 
-<div class="bg-pink-400 dark:bg-blue-800 w-full max-w-md p-6 rounded-xl shadow-xl">
+<!-- Wrapper for header + tasks -->
+<div class="w-full max-w-md">
 
-  <!-- Header -->
-  <div class="flex justify-between items-center mb-4">
-    <h1 class="text-2xl font-bold text-slate-800 dark:text-white">✅ My Tasks</h1>
-    <button onclick="toggleDark()" class="text-xl">🌙</button>
+  <!-- Header with username and logout -->
+  <div class="flex justify-between items-center mb-4 px-2">
+      <span class="username text-white dark:text-gray-200">Logged in as: <strong>{{ session['username'] }}</strong></span>
+      <a href="{{ url_for('logout') }}"
+         class="logout-btn bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg text-sm">
+        Logout
+      </a>
   </div>
 
-  <!-- Input Form -->
-  <form method="POST" class="flex gap-2 mb-4">
-    <input
-      name="task"
-      placeholder="Add new task..."
-      class="flex-1 px-3 py-2 rounded-lg border dark:bg-slate-700 dark:text-white focus:outline-none"
-      required
-    >
-    <button class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 rounded-lg">
-      Add
-    </button>
-  </form>
+  <!-- Tasks Container -->
+  <div class="bg-pink-400 dark:bg-blue-800 w-full p-6 rounded-xl shadow-xl">
 
-  <!-- Task List -->
-  <ul class="space-y-2">
-    {% for task in tasks %}
-    <!-- Checkbox + Task Name -->
-<li class="flex items-center justify-between bg-gray-100 dark:bg-gray-700 p-3 rounded-lg transition hover:scale-105">
-  <label class="flex items-center gap-2 cursor-pointer flex-1">
-    <input type="checkbox"
-           class="form-checkbox h-5 w-5 text-indigo-500"
-           {% if task[2] %} checked {% endif %}
-           onchange="toggleTask({{ task[0] }}, this)">
-    <span class="flex-1 {% if task[2] %} line-through text-gray-400 dark:text-gray-300 {% else %} text-gray-800 dark:text-white {% endif %}">
-      {{ task[1] }}
-    </span>
-  </label>
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="text-2xl font-bold text-slate-800 dark:text-white">✅ My Tasks</h1>
+      <button onclick="toggleDark()" class="text-xl">🌙</button>
+    </div>
 
-  <!-- Delete Button -->
-  <a href="/delete/{{task[0]}}" class="text-red-500 hover:text-red-700 ml-2">✕</a>
-</li>
+    <!-- Input Form -->
+    <form method="POST" class="flex gap-2 mb-4">
+      <input
+        name="task"
+        placeholder="Add new task..."
+        class="flex-1 px-3 py-2 rounded-lg border dark:bg-slate-700 dark:text-white focus:outline-none"
+        required
+      >
+      <button class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 rounded-lg">
+        Add
+      </button>
+    </form>
 
-    {% endfor %}
-  </ul>
+    <!-- Task List -->
+    <ul class="space-y-2">
+      {% for task in tasks %}
+      <li class="flex items-center justify-between bg-gray-100 dark:bg-gray-700 p-3 rounded-lg transition hover:scale-105">
+        <label class="flex items-center gap-2 cursor-pointer flex-1">
+          <input type="checkbox"
+       class="form-checkbox h-5 w-5 text-indigo-500"
+       {% if task[3] %} checked {% endif %}
+       onchange="toggleTask({{ task[0] }}, this)">
+<span class="flex-1 {% if task[3] %} line-through text-gray-400 dark:text-gray-300 {% else %} text-gray-800 dark:text-white {% endif %}">
+  {{ task[2] }} <!-- <-- change from task[1] to task[2] -->
+</span>
 
+        </label>
+        <a href="/delete/{{task[0]}}" class="text-red-500 hover:text-red-700 ml-2">✕</a>
+      </li>
+      {% endfor %}
+    </ul>
+
+  </div>
 </div>
 
 <script>
@@ -67,6 +77,3 @@ if(localStorage.getItem("dark") === "true") {
   document.body.classList.add("dark");
 }
 </script>
-
-</body>
-</html>
