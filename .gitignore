@@ -1,4 +1,12 @@
+# Node modules
 node_modules/
+
+# Tailwind input file
+static/input.css
+
+# Database file
+todo.db
+
+# Python cache
 __pycache__/
-*.db
-.env
+*.pyc
